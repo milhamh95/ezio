@@ -1,7 +1,9 @@
 package main
 
 func main() {
-	event := InitializeEvent()
+	message := NewMessage()
+	greeter := NewGreeter(message)
+	event := NewEvent(greeter)
 
 	event.Start()
 }
