@@ -1,9 +1,15 @@
 package main
 
-func main() {
-	message := NewMessage()
-	greeter := NewGreeter(message)
-	event := NewEvent(greeter)
+import "fmt"
 
-	event.Start()
+func main() {
+	msg := "this is a message abc"
+	evtTopic := TopicEvent("topic.event")
+	msgTopic := TopicMessage("topic.message")
+	e, err := InitializeEvent(evtTopic,msgTopic,msg)
+	if err != nil {
+		fmt.Println("error")
+		return
+	}
+	e.Start()
 }

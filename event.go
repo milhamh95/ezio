@@ -2,14 +2,23 @@ package main
 
 import "fmt"
 
+type TopicEvent string
+
 type Event struct {
-	Greeter Greeter
+	Topic   TopicEvent
+	Message Message
 }
 
-func NewEvent(g Greeter) Event {
-	return Event{Greeter: g}
+func NewEvent(topic TopicEvent, msg Message) (Event, error) {
+	if topic == "" {
+		return Event{}, fmt.Errorf("empty topic")
+	}
+	return Event{
+		Topic:   topic,
+		Message: msg,
+	}, nil
 }
 func (e Event) Start() {
-	msg := e.Greeter.Greet()
-	fmt.Println(msg)
+	msg := e.Message.Get()
+	fmt.Printf("topic:%s, message:%s", e.Topic, msg)
 }
